@@ -32,6 +32,9 @@ So to run the program, please run it using the execute button on intelli J, firs
 
 ![Alt text](https://github.com/Semilore-omoyeleomoyinmi/Assignment2SysytemDevInt/blob/main/ScreenShot4.png?raw=true "After 'Upload' clicked")
 
+---
+ Please open the Assignment2SysytemDevInt/Assignment2 directory to access the files, this is not meant to be a gradle project, but my other team mate thought it was. 
+
 
 
 
