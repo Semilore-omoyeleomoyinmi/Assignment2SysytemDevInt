@@ -50,8 +50,10 @@ public class Main extends Application {
             System.out.println(clickedFile);
             String downString = "";
             app.networkOut.println("DOWNLOAD,"+clickedFile);
+
             try {
                 downString = app.networkIn.readLine();
+
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -76,9 +78,7 @@ public class Main extends Application {
 
 
         // functionality for the upload button
-        upload.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
+        upload.setOnAction(ev ->{
                 String outputString = "";
 
                 FileReader reader = null;
@@ -118,8 +118,7 @@ public class Main extends Application {
                 }
 
 
-            }
-        });
+            });
 
          // Grid pane to house both server and client view
         GridPane overGrid = new GridPane();

@@ -33,6 +33,7 @@ public class SeverFileShareThread extends Thread{
         } catch(IOException e){
             e.printStackTrace();
         }
+
     }
 
     protected boolean doCommand()  {
@@ -42,16 +43,15 @@ public class SeverFileShareThread extends Thread{
         String fileContent = null;
         try{
             input = in.readLine();
+            System.out.println(input);
 
         } catch (IOException e) {
             System.err.println("Error reading command");
-            return true;
         }
 
         if (input == null) {
             return true;
         }
-
 
         // get the command and file name from the client side's socket output stream
         String []list = input.split(",");
@@ -63,14 +63,17 @@ public class SeverFileShareThread extends Thread{
             fileContent = list[1];
             fileName = list[2];
         }
+        System.out.println(command+ fileContent+ fileName + "");
 
         // process the command
         try {
             if (command.equals("DOWNLOAD")) {
                 // send a string that represents a file to the client
-                String dresult = performDownload(fileName)+","+fileName;
-                output.println(dresult);
-                return true;
+                synchronized (this) {
+                    String dresult = performDownload(fileName) + "," + fileName;
+                    output.println(dresult);
+                }
+                return false;
             }
         } catch(IOException e){
             e.printStackTrace();
@@ -78,7 +81,10 @@ public class SeverFileShareThread extends Thread{
         try {
             if (command.equals("UPLOAD")) {
                 // send a string that represents a file to the client
-                performUpload(fileName, fileContent);
+                synchronized (this) {
+                    performUpload(fileName, fileContent);
+                }
+                return false;
             }
         }catch (IOException e){
             e.printStackTrace();
